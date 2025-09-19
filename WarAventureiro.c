@@ -29,6 +29,9 @@
         if (attacker->troops <= 0) {
             return 4; // atacante perdeu todas as tropas
         }
+        if (defender->troops <= 0) {
+            return 5;
+        }
 
         return 2; // defensor venceu o turno
     }
@@ -52,7 +55,7 @@ int main () {
    //número de cadastros
     int t;
 
-    int resultado = attack(attacker, defender);
+    int resultado;
     
     
 
@@ -66,7 +69,7 @@ int main () {
         printf("========================= \n");
 
 
-        printf("quantos territorios vai adicionar? ");
+        printf("quantos territorios vai adicionar? (MAX: 5) ");
         scanf("%d", &t);
 
         //solicitar um espaço de 5 inteiros na memória
@@ -116,7 +119,7 @@ while(1) {
     if (strcmp(attacker->name, defender->name) == 0) {
         printf("Não pode escolher o mesmo território duas vezes..\n");
     } else {
-        attack(attacker, defender);
+       resultado = attack(attacker, defender);
     }
 } else {
     printf("Atacante ou defensor não encontrado!\n");
@@ -142,13 +145,15 @@ while(1) {
 
     }
     if (resultado == 1) {
-    printf("Resultado da batalha: O atacante venceu!\n");
+    printf("Resultado da batalha: O atacante %s venceu!\n", attacker->name);
 } else if (resultado == 2) {
-    printf("Resultado da batalha: O defensor resistiu!\n");
+    printf("Resultado da batalha: O defensor %s resistiu!\n", defender->name);
 } else if (resultado == 3) {
     printf("Resultado da batalha: Empate! Ninguém perdeu tropas.\n");
 } else if (resultado == 4) {
-    printf("Resultado da batalha: O atacante perdeu todas as tropas!\n");
+    printf("Resultado da batalha: O atacante %s (%s) perdeu todas as tropas para %s (%s)!\n", attacker->name, attacker->color, defender->name, defender->color);
+} else if (resultado == 5) {
+    printf("Resultado da batalha: O defensor %s (%s) perdeu todas as tropas para %s (%s)!\n", defender->name, defender->color, attacker->name, attacker->color);
 }
         
 
